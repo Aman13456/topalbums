@@ -1,8 +1,8 @@
 import React from 'react';
 import {Platform} from 'react-native';
 import {connect} from 'react-redux';
-import NetInfo from '@react-native-community/netinfo';
-import {fetchAlbums} from '../redux/actions';
+import NetInfo from './NetInfo';
+import {fetchAlbums, updateLoading} from '../redux/actions';
 import Loader from './Loader';
 import AlbumList from './AlbumList';
 import NoInternet from './NoInternet';
@@ -44,6 +44,8 @@ class Home extends React.Component {
       this.setState({isConnectedToInternet: isInternetReachable});
       if (isInternetReachable) {
         this.fetchData();
+      } else {
+        this.props.dispatch(updateLoading(false));
       }
       Platform.OS === 'android' && SplashScreen.hide();
     });

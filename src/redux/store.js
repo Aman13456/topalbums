@@ -4,7 +4,7 @@ import roorReducer from './reducers';
 
 let INITIAL_STATE = {
   data: [],
-  loading: false,
+  loading: true,
 };
 
 const store = createStore(roorReducer, INITIAL_STATE, applyMiddleware(thunk));

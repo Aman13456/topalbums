@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 36,
-    color: "white"
+    color: 'white',
   },
 });

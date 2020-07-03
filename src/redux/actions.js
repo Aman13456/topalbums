@@ -3,10 +3,7 @@ import {extractRequiredData} from '../utils';
 
 export const fetchAlbums = () => {
   return (dispatch) => {
-    dispatch({
-      type: UPDATE_LOADING,
-      loading: true,
-    });
+    dispatch(updateLoading(true));
     fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
       .then((res) => res.json())
       .then((res) => {
@@ -17,11 +14,15 @@ export const fetchAlbums = () => {
         });
       })
       .catch((err) => {
-        dispatch({
-          type: UPDATE_LOADING,
-          loading: false,
-        });
+        dispatch(updateLoading(false));
       });
+  };
+};
+
+export const updateLoading = (loading) => {
+  return {
+    type: UPDATE_LOADING,
+    loading,
   };
 };
 

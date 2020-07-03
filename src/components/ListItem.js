@@ -1,9 +1,16 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  Image as RNImage,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {toggleFavourite} from '../redux/actions';
 import {favouriteWhiteIcon, favouriteWhiteSelectedIcon} from '../images';
 import store from '../redux/store';
+import Image from './Image';
 
 class ListItem extends React.PureComponent {
   onFavouriteClick = () => {
@@ -15,7 +22,7 @@ class ListItem extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View style={styles.coverImageContainer}>
-          <Image
+          <RNImage
             style={styles.coverImage}
             resizeMode={'cover'}
             source={{uri: data.albumCover}}

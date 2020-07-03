@@ -3,13 +3,12 @@ import {
   Text,
   View,
   FlatList,
-  Image,
   Animated,
   TextInput,
   StyleSheet,
 } from 'react-native';
 import PropTypes from 'prop-types';
-
+import Image from './Image';
 import {searchIcon} from '../images';
 import {filterSearchData} from '../utils';
 import ListItem from './ListItem';
