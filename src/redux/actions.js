@@ -1,11 +1,11 @@
 import {UPDATE_LOADING, DATA_FETCHED, TOGGLE_FAVOURITE} from './actionTypes';
 import {extractRequiredData} from '../utils';
+import {fetchAlbumsFromServer} from '../api';
 
 export const fetchAlbums = () => {
   return (dispatch) => {
     dispatch(updateLoading(true));
-    fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
-      .then((res) => res.json())
+    fetchAlbumsFromServer()
       .then((res) => {
         let data = extractRequiredData(res);
         dispatch({
