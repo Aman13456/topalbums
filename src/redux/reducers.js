@@ -34,6 +34,9 @@ const reducer = (state, action) => {
           data: newData,
         };
       }
+      default: {
+        return state;
+      }
     }
   }
   return state;
