@@ -7,6 +7,6 @@ export default class Image extends React.Component {
     if (resizeMode) {
       imageStyle['objectFit'] = resizeMode;
     }
-    return <img src={source} style={imageStyle} />;
+    return <img src={source} alt={"icon"} style={imageStyle} />;
   }
 }
