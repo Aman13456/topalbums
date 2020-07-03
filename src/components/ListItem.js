@@ -32,9 +32,16 @@ class ListItem extends React.PureComponent {
           <Text style={styles.nameText} numberOfLines={2}>
             {data.name}
           </Text>
-          <Text style={styles.artistText} numberOfLines={1}>
+          <Text
+            style={[styles.secondaryText, {paddingTop: 2}]}
+            numberOfLines={1}>
             {data.artist}
           </Text>
+          <View style={styles.releaseDateContainer}>
+            <Text style={styles.secondaryText}>{data.itemCount} Items</Text>
+            <Separator />
+            <Text style={styles.secondaryText}>{data.releaseDate}</Text>
+          </View>
         </View>
         <TouchableOpacity
           style={styles.favouriteContainer}
@@ -61,6 +68,12 @@ ListItem.propTypes = {
     favourite: PropTypes.bool,
   }),
 };
+
+class Separator extends React.Component {
+  render() {
+    return <View style={styles.separator}></View>;
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -91,14 +104,30 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   nameText: {
+    fontSize: 16,
     color: 'white',
   },
-  artistText: {
-    color: 'white',
+  secondaryText: {
+    color: 'grey',
   },
+  releaseDateContainer: {
+    flexDirection: 'row',
+    overflow: 'hidden',
+    alignItems: 'center',
+    paddingTop: 2,
+  },
+
   favouriteContainer: {
     justifyContent: 'center',
-    padding: 4,
+    padding: 8,
+  },
+  separator: {
+    height: 3,
+    width: 3,
+    borderRadius: 2,
+    backgroundColor: 'grey',
+    marginHorizontal: 6,
+    marginBottom: -2,
   },
 });
 

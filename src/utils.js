@@ -12,7 +12,7 @@ export const extractRequiredData = (fetchedData) => {
         'im:name': {label: name} = {},
         'im:itemCount': {label: itemCount} = {},
         'im:artist': {label: artist} = {},
-        'im:releaseDate': {label: releaseDate} = {},
+        'im:releaseDate': {attributes: {label: releaseDate} = {}} = {},
         'im:image': images = [],
         id: {attributes: {'im:id': id} = {}} = {},
       } = row;
