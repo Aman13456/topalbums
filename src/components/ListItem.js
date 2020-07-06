@@ -9,12 +9,12 @@ import {
 import PropTypes from 'prop-types';
 import {toggleFavourite} from '../redux/actions';
 import {favouriteWhiteIcon, favouriteWhiteSelectedIcon} from '../images';
-import store from '../redux/store';
 import Image from './Image';
+import {connect} from 'react-redux';
 
 class ListItem extends React.PureComponent {
   onFavouriteClick = () => {
-    store.dispatch(toggleFavourite(this.props.data.id));
+    this.props.dispatch(toggleFavourite(this.props.data.id));
   };
 
   render() {
@@ -131,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+export default connect()(ListItem);

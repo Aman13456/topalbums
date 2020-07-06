@@ -84,7 +84,7 @@ class Home extends React.Component {
     } else if (!isConnectedToInternet) {
       return <NoInternet />;
     } else {
-      return <Retry />;
+      return <Retry fetchData={this.fetchData} />;
     }
   }
 }

@@ -18,12 +18,26 @@ const SEARCH_BAR_HEIGHT = 50;
 const SEARCH_BAR_MARGIN = 8;
 const SEARCH_BAR_EFFECTIVE_HEIGHT = SEARCH_BAR_HEIGHT + SEARCH_BAR_MARGIN;
 
+const AnimatedList = Animated.createAnimatedComponent(FlatList);
+
 class AlbumList extends React.Component {
   constructor(props) {
     super(props);
+    const scrollAnim = new Animated.Value(0);
+    const offsetAnim = new Animated.Value(0);
     this.state = {
       listData: props.data,
-      scrollY: new Animated.Value(0),
+      scrollAnim,
+      offsetAnim,
+      clampedScroll: Animated.diffClamp(
+        scrollAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolateLeft: 'clamp',
+        }),
+        0,
+        HEADER_HEIGHT - SEARCH_BAR_EFFECTIVE_HEIGHT,
+      ),
     };
   }
 
@@ -45,8 +59,7 @@ class AlbumList extends React.Component {
 
   render() {
     const {listData} = this.state;
-
-    let headerTop = this.state.scrollY.interpolate({
+    let headerTranslate = this.state.clampedScroll.interpolate({
       inputRange: [0, HEADER_HEIGHT - SEARCH_BAR_EFFECTIVE_HEIGHT],
       outputRange: [0, -(HEADER_HEIGHT - SEARCH_BAR_EFFECTIVE_HEIGHT)],
       extrapolate: 'clamp',
@@ -54,7 +67,11 @@ class AlbumList extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Animated.View style={[styles.headerContainer, {top: headerTop}]}>
+        <Animated.View
+          style={[
+            styles.headerContainer,
+            {transform: [{translateY: headerTranslate}]},
+          ]}>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.titleText}>Top 100 Albums</Text>
           </View>
@@ -72,13 +89,13 @@ class AlbumList extends React.Component {
           </View>
         </Animated.View>
 
-        <FlatList
+        <AnimatedList
           data={listData}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
           onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}],
-            {useNativeDriver: false},
+            [{nativeEvent: {contentOffset: {y: this.state.scrollAnim}}}],
+            {useNativeDriver: true},
           )}
           scrollEventThrottle={16}
           ListHeaderComponent={<View style={{height: HEADER_HEIGHT}} />}

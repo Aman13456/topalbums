@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import store from '../redux/store';
-import {fetchAlbums} from '../redux/actions';
+import PropTypes from 'prop-types';
 
 export default class Retry extends React.Component {
   retryFetchData = () => {
-    store.dispatch(fetchAlbums());
+    this.props.fetchData();
   };
 
   render() {
@@ -22,6 +21,14 @@ export default class Retry extends React.Component {
     );
   }
 }
+
+Retry.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+};
+
+Retry.defaultProps = {
+  fetchData: () => {},
+};
 
 const styles = StyleSheet.create({
   container: {
